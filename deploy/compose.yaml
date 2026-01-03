@@ -1,23 +1,23 @@
 include:
-  - kafka.yaml
-  - kafka-ui.yaml
+  # - kafka.yaml
+  # - kafka-ui.yaml
   - airflow.yaml
 
-services:
-  postgres:
-    image: "postgres:16-alpine"
-    container_name: clipquest-postgres
-    environment:
-      POSTGRES_USER: clipquest_username
-      POSTGRES_PASSWORD: clipquest_password
-      POSTGRES_DB: clipquest_postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 10s
+# services:
+#   postgres_v2:
+#     image: "postgres:16-alpine"
+#     container_name: clipquest-postgres
+#     environment:
+#       POSTGRES_USER: clipquest_username
+#       POSTGRES_PASSWORD: clipquest_password
+#       POSTGRES_DB: clipquest_postgres
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - ./data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+#       interval: 10s
+#       retries: 5
+#       start_period: 30s
+#       timeout: 10s
