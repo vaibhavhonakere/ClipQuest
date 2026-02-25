@@ -1,7 +1,7 @@
 services:
   embedding-worker:
     build:
-      context: ./kafka_small_demo
+      context: ../backend
       dockerfile: Dockerfile
     container_name: clipquest-embedding-worker
     command: ["python", "asset_transcriber_worker.py"]

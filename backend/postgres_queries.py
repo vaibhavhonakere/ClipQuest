@@ -44,3 +44,10 @@ def insert_transcript_row(
     )
     params = (chunk_index, asset_id, start_ms, end_ms, text)
     connect_and_query(sql, params)
+
+
+def _update_asset_status(asset_id: str, status: str) -> None:
+    """Update pipeline status for an asset row."""
+    sql = "UPDATE assets SET status = %s WHERE asset_id = %s"
+    params = (status, str(asset_id))
+    connect_and_query(sql, params)

@@ -1,7 +1,7 @@
 services:
   transcription-worker:
     build:
-      context: ./kafka_small_demo
+      context: ../backend
       dockerfile: Dockerfile
     container_name: clipquest-transcription-worker
     command: ["python", "asset_uploaded_worker.py"]

@@ -73,33 +73,6 @@ def _parse_event(msg: Message) -> Optional[Dict[str, Any]]:
         print(f"Failed to decode/parse message: {exc}")
         return None
 
-
-
-# def _process_audio_of_video(video_path: str, asset_id: str) -> bool:
-#     """Processing the video file to extract the audio."""
-#     try:
-#         clip = VideoFileClip(filename=video_path)
-#         audio = clip.audio
-#         if audio is None:
-#             print(f"No audio track found in '{video_path}'")
-#             clip.close()
-#             return False
-#         print(
-#             f"""
-#               Audio duration of video '{video_path}': {audio.duration:.2f} seconds
-#             """
-#         )
-#         dest_file_path = os.path.join(f"{OBJECT_ROOT}/{asset_id}", "audio.mp3")
-#         print(f"Writing extracted audio to '{dest_file_path}'...")
-#         audio.write_audiofile(dest_file_path)
-#         audio.close()
-#         clip.close()
-#         return True
-#     except Exception as exc:
-#         print(f"Failed to process video '{video_path}': {exc}")
-#         return False
-
-
 def main() -> int:
     """Entrypoint."""
     bootstrap = os.getenv("KAFKA_BOOTSTRAP", DEFAULT_BOOTSTRAP)

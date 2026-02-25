@@ -1,7 +1,7 @@
 services:
   ingest-api:
     build:
-      context: ./kafka_small_demo
+      context: ../backend
       dockerfile: Dockerfile
     container_name: clipquest-ingest-api
     command: ["uvicorn", "ingest_api:app", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]

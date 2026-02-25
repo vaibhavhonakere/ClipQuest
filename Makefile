@@ -1,4 +1,4 @@
-.PHONY: up down reset logs ps build restart
+.PHONY: up down reset logs ps build restart config infra-up infra-down infra-logs
 
 COMPOSE_FILES = \
 	-f docker/compose.base.yml \
@@ -11,6 +11,14 @@ COMPOSE_FILES = \
 	-f docker/frontend.compose.yml
 
 DOCKER_COMPOSE = docker compose $(COMPOSE_FILES)
+
+INFRA_COMPOSE_FILES = \
+	-f docker/compose.base.yml \
+	-f docker/kafka.compose.yml \
+	-f docker/postgres.compose.yml \
+	-f docker/minio.compose.yml
+
+INFRA_COMPOSE = docker compose $(INFRA_COMPOSE_FILES)
 
 up:
 	$(DOCKER_COMPOSE) up -d --build
@@ -61,3 +69,15 @@ ps:
 
 restart:
 	$(DOCKER_COMPOSE) down && $(MAKE) up
+
+config:
+	$(DOCKER_COMPOSE) config --quiet
+
+infra-up:
+	$(INFRA_COMPOSE) up -d
+
+infra-down:
+	$(INFRA_COMPOSE) down
+
+infra-logs:
+	$(INFRA_COMPOSE) logs -f --tail=200
