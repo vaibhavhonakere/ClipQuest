@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+psycopg2-binary
+confluent-kafka
+openai-whisper
+sentence-transformers
+pgvector
+boto3
+python-multipart
+moviepy
+numpy

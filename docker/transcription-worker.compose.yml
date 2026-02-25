@@ -1,0 +1,32 @@
+services:
+  transcription-worker:
+    build:
+      context: ./kafka_small_demo
+      dockerfile: Dockerfile
+    container_name: clipquest-transcription-worker
+    command: ["python", "asset_uploaded_worker.py"]
+    environment:
+      KAFKA_BOOTSTRAP: kafka:9092
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_DB: clipquest_postgres
+      PG_USER: clipquest_username
+      PG_PASS: clipquest_password
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin123
+      MINIO_BUCKET: clipquest-media
+      WHISPER_MODEL: base
+      UPLOADED_WORKER_GROUP_ID: asset_uploaded_transcription_workers
+      HF_HOME: /root/.cache/huggingface
+    volumes:
+      - model_cache:/root/.cache
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully

@@ -1,0 +1,7 @@
+name: clipquest
+
+volumes:
+  kafka_data:
+  postgres_data:
+  minio_data:
+  model_cache:

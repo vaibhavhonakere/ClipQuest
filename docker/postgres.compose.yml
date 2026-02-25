@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: clipquest-postgres
+    environment:
+      POSTGRES_USER: clipquest_username
+      POSTGRES_PASSWORD: clipquest_password
+      POSTGRES_DB: clipquest_postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clipquest_username -d clipquest_postgres"]
+      interval: 10s
+      retries: 10
+      start_period: 20s
+      timeout: 5s

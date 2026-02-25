@@ -1,0 +1,29 @@
+services:
+  ingest-api:
+    build:
+      context: ./kafka_small_demo
+      dockerfile: Dockerfile
+    container_name: clipquest-ingest-api
+    command: ["uvicorn", "ingest_api:app", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]
+    environment:
+      KAFKA_BOOTSTRAP: kafka:9092
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_DB: clipquest_postgres
+      PG_USER: clipquest_username
+      PG_PASS: clipquest_password
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin123
+      MINIO_BUCKET: clipquest-media
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
